@@ -1,0 +1,10 @@
+.env
+.env.local
+.env.*.local
+.playwright-cli
+.next
+node_modules
+output
+screenshots
+*.tsbuildinfo
+Logo_Kuntur_Travel.png

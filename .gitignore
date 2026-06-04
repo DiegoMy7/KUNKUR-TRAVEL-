@@ -1,0 +1,15 @@
+.env
+.env.local
+.env.*.local
+.next/
+.vercel/
+.playwright-cli/
+node_modules/
+output/
+screenshots/
+dist/
+build/
+*.tsbuildinfo
+Logo_Kuntur_Travel.png
+
+.vercel
