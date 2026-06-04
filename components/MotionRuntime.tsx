@@ -34,54 +34,33 @@ export function MotionRuntime() {
     requestAnimationFrame(raf);
     lenis.on("scroll", ScrollTrigger.update);
 
-    const ctx = gsap.context(() => {
-      const revealElements = gsap.utils.toArray<HTMLElement>(".reveal");
-
-      revealElements.forEach((element) => {
-        const siblings = Array.from(element.parentElement?.children ?? []).filter((child) =>
-          child.classList.contains("reveal")
-        );
-        const siblingIndex = Math.max(0, siblings.indexOf(element));
-        const isFinalCta = element.classList.contains("cta-finale");
-        const isCard =
-          element.classList.contains("package-card") ||
-          element.classList.contains("bento-card") ||
-          element.classList.contains("testimonial-card");
-
-        gsap.set(element, {
-          autoAlpha: 0,
-          y: isFinalCta ? 92 : isCard ? 68 : 56,
-          scale: isCard ? 0.965 : 0.985,
-          filter: "blur(12px)"
-        });
-
-        ScrollTrigger.create({
-          trigger: element,
-          start: "top 84%",
-          once: true,
-          onEnter: () => {
-            gsap.to(element, {
-              autoAlpha: 1,
-              y: 0,
-              scale: 1,
-              filter: "blur(0px)",
-              duration: isFinalCta ? 0.98 : 0.82,
-              delay: isCard ? Math.min(siblingIndex * 0.08, 0.32) : 0,
-              ease: "expo.out",
-              clearProps: "filter,transform,opacity,visibility",
-              onComplete: () => element.classList.add("reveal-visible")
-            });
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
           }
-        });
-      });
 
+          entry.target.classList.add("reveal-visible");
+          revealObserver.unobserve(entry.target);
+        });
+      },
+      {
+        root: null,
+        rootMargin: "0px 0px -14% 0px",
+        threshold: 0.08
+      }
+    );
+
+    document.querySelectorAll(".reveal").forEach((element) => {
+      revealObserver.observe(element);
     });
 
     const refresh = window.setTimeout(() => ScrollTrigger.refresh(), 350);
 
     return () => {
       window.clearTimeout(refresh);
-      ctx.revert();
+      revealObserver.disconnect();
       lenis.destroy();
       document.documentElement.classList.remove("motion-ready");
     };

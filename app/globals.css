@@ -255,6 +255,10 @@ header[class*="py-2"] .nav-cta {
   opacity: 0;
   filter: blur(12px);
   transform: translateY(58px) scale(0.98);
+  transition:
+    opacity 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity, filter;
 }
 
@@ -262,6 +266,17 @@ header[class*="py-2"] .nav-cta {
   opacity: 1;
   filter: none;
   transform: none;
+}
+
+.motion-ready .package-card.reveal,
+.motion-ready .bento-card.reveal,
+.motion-ready .testimonial-card.reveal {
+  transition-delay: var(--float-delay, 0ms);
+}
+
+.motion-ready .cta-finale.reveal {
+  transform: translateY(78px) scale(0.985);
+  transition-duration: 900ms;
 }
 
 .hover-lift {
