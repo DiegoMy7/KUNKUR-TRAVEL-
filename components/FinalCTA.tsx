@@ -16,7 +16,7 @@ export function FinalCTA() {
       </div>
 
       <div className="container-premium relative z-10">
-        <div className="cta-finale max-w-4xl">
+        <div className="cta-finale reveal max-w-4xl">
           <div className="eyebrow mb-5">CTA final</div>
           <h2 className="display-title text-[clamp(3.6rem,9vw,8.4rem)] text-bone text-balance">
             Tu próximo viaje ya existe. Solo falta diseñarlo.

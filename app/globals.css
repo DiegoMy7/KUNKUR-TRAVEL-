@@ -246,10 +246,22 @@ header[class*="py-2"] .nav-cta {
 }
 
 .reveal {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+.motion-ready .reveal {
   opacity: 0;
-  filter: blur(8px);
-  transform: translateY(34px) scale(0.98);
+  filter: blur(12px);
+  transform: translateY(58px) scale(0.98);
   will-change: transform, opacity, filter;
+}
+
+.motion-ready .reveal.reveal-visible {
+  opacity: 1;
+  filter: none;
+  transform: none;
 }
 
 .hover-lift {
@@ -516,7 +528,6 @@ header[class*="py-2"] .nav-cta {
 .cta-finale {
   position: relative;
   border-radius: 28px;
-  animation: cta-rise 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .planner-console {
