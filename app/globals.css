@@ -401,32 +401,34 @@ header[class*="py-2"] .nav-cta {
   height: 32px;
   flex: none;
   place-items: center;
-  transform: translate(-0.5px, -6px);
 }
 
 .bot-launcher-chat-icon,
 .bot-launcher-bot-icon {
-  grid-area: 1 / 1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
   transition: opacity 220ms ease, transform 220ms ease;
+  transform-origin: center;
 }
 
 .bot-launcher-bot-icon {
   opacity: 0;
-  transform: translateY(9px) rotate(-10deg) scale(0.92);
+  transform: translate(-50%, calc(-50% + 9px)) rotate(-10deg) scale(0.92);
 }
 
 .bot-launcher-chat-icon {
-  transform: translateY(-1px);
+  transform: translate(-50%, -50%);
 }
 
 .bot-launcher:hover .bot-launcher-chat-icon {
   opacity: 0;
-  transform: translateY(-10px) rotate(10deg) scale(0.92);
+  transform: translate(-50%, calc(-50% - 10px)) rotate(10deg) scale(0.92);
 }
 
 .bot-launcher:hover .bot-launcher-bot-icon {
   opacity: 1;
-  transform: translateY(0) rotate(0);
+  transform: translate(-50%, -50%) rotate(0);
 }
 
 .bot-launcher-label {
