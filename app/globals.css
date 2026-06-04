@@ -383,7 +383,7 @@ header[class*="py-2"] .nav-cta {
   height: 64px;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 0;
   overflow: hidden;
   border: 1px solid rgba(216, 168, 91, 0.45);
   border-radius: 999px;
@@ -391,7 +391,7 @@ header[class*="py-2"] .nav-cta {
   background: var(--sand);
   box-shadow: 0 24px 80px rgba(216, 168, 91, 0.22);
   isolation: isolate;
-  transition: width 320ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms ease, background 220ms ease;
+  transition: width 320ms cubic-bezier(0.22, 1, 0.36, 1), gap 320ms cubic-bezier(0.22, 1, 0.36, 1), transform 220ms ease, background 220ms ease;
 }
 
 .bot-launcher svg {
@@ -402,6 +402,7 @@ header[class*="py-2"] .nav-cta {
 
 .bot-launcher:hover {
   width: 202px;
+  gap: 10px;
   background: linear-gradient(135deg, #d8a85b, #f2d28a);
   transform: translateY(-4px);
 }

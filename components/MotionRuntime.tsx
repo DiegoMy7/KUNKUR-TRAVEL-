@@ -57,7 +57,7 @@ export function MotionRuntime() {
 
         ScrollTrigger.create({
           trigger: element,
-          start: "top 78%",
+          start: "top 84%",
           once: true,
           onEnter: () => {
             gsap.to(element, {
@@ -65,7 +65,7 @@ export function MotionRuntime() {
               y: 0,
               scale: 1,
               filter: "blur(0px)",
-              duration: isFinalCta ? 1.18 : 0.98,
+              duration: isFinalCta ? 0.98 : 0.82,
               delay: isCard ? Math.min(siblingIndex * 0.08, 0.32) : 0,
               ease: "expo.out",
               clearProps: "filter,transform,opacity,visibility",
