@@ -84,7 +84,7 @@ export function ScrollJourneySequence() {
                   <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.24em] text-sand md:text-sm">
                     Frame {String(index + 1).padStart(2, "0")}
                   </p>
-                  <h2 className="display-title max-w-[520px] text-[clamp(2.7rem,5.2vw,4.9rem)] leading-[0.96] text-bone text-balance">
+                  <h2 className="display-title max-w-full text-[clamp(2.7rem,4.65vw,4.35rem)] leading-[0.96] text-bone text-balance">
                     {frame.title}
                   </h2>
                   <p className="mt-4 max-w-md text-sm leading-6 text-bone/72 md:text-base md:leading-7">{frame.caption}</p>
