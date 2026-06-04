@@ -8,7 +8,7 @@ export function Packages() {
       <div className="container-premium">
         <div className="reveal mx-auto max-w-3xl text-center">
           <div className="eyebrow mb-5 justify-center">Paquetes</div>
-          <h2 className="display-title text-[clamp(3rem,6.4vw,5.8rem)] text-bone">Precios claros. Rutas con carácter.</h2>
+          <h2 className="display-title text-[clamp(2.7rem,5.1vw,4.9rem)] text-bone">Precios claros. Rutas con carácter.</h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-bone/68">
             Pricing turístico pensado como experiencia: visual, flexible y listo para personalizar
             con el asistente.
@@ -19,9 +19,9 @@ export function Packages() {
           {packages.map((item) => (
             <article
               key={item.name}
-              className="reveal hover-lift group relative flex h-full min-h-[560px] flex-col overflow-hidden rounded-[26px] border border-bone/12 bg-[#090908] md:min-h-[620px] xl:min-h-[650px]"
+              className="reveal hover-lift group relative flex h-full min-h-[430px] flex-col overflow-hidden rounded-[26px] border border-bone/12 bg-[#090908] md:min-h-[500px] xl:min-h-[520px]"
             >
-              <div className="package-media relative h-[230px] shrink-0 overflow-hidden image-fallback">
+              <div className="package-media relative h-[205px] shrink-0 overflow-hidden image-fallback md:h-[220px]">
                 <Image
                   src={item.image}
                   alt={item.name}
@@ -37,7 +37,7 @@ export function Packages() {
                 <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-sand">{item.price}</p>
                 <h3 className="mt-2 font-display text-3xl font-semibold leading-none">{item.name}</h3>
                 <p className="mt-3 text-sm leading-6 text-bone/58">Ideal para {item.idealFor}.</p>
-                <div className="mt-5 space-y-3">
+                <div className="mt-4 space-y-2.5">
                   {item.includes.map((include) => (
                     <div key={include} className="flex gap-2 text-sm text-bone/72">
                       <Check className="mt-0.5 shrink-0 text-sand" size={16} />
@@ -45,7 +45,7 @@ export function Packages() {
                     </div>
                   ))}
                 </div>
-                <a href="#kuntur-chat" className="premium-button mt-auto w-full bg-bone/8">
+                <a href="#kuntur-chat" className="premium-button mt-5 w-full bg-bone/8">
                   Cotizar ruta
                   <MoveRight size={16} />
                 </a>

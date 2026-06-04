@@ -31,6 +31,29 @@ const contactReply = `Puedes continuar la asesoría por WhatsApp con Kuntur Trav
 Número: 965 338 001.
 Si quieres, dime primero presupuesto, fechas, ciudad de salida y cantidad de viajeros; con eso preparo un resumen ordenado para enviarlo.`;
 
+const destinationsReply = `Tenemos rutas recomendadas por Lima, Ica, Paracas, Huacachina, Cusco, Arequipa, Huaraz, Puno, Tarapoto, Ayacucho y La Libertad.
+Para elegir bien, dime si buscas cultura, aventura, fotos, comida, naturaleza o descanso.
+Si sales desde Lima y tienes pocos días, las opciones más prácticas son Paracas + Huacachina, Lima gastronómica, Huaraz corto o Ica.`;
+
+const pricingReply = `Los presupuestos son aproximados y dependen de fecha, transporte, hospedaje y cantidad de viajeros.
+Como referencia: full day desde Lima puede ir desde S/180 a S/350; escapadas de 2 a 3 días desde S/520 a S/850; rutas premium como Cusco suelen partir desde S/890 sin vuelos.
+Si me das presupuesto, días y ciudad de salida, te propongo una ruta que no se dispare.`;
+
+const paymentReply = `Para una reserva real se debe confirmar disponibilidad, fecha, cantidad de viajeros y condiciones del proveedor.
+En esta demo no procesamos pagos dentro de la web; el flujo correcto es asesoría por chat, resumen de ruta y cierre por WhatsApp con un asesor.
+Esto evita cobros improvisados y permite validar horarios, entradas y transporte antes de pagar.`;
+
+const safetyReply = `Sí, la idea es priorizar rutas seguras, horarios claros y proveedores verificables.
+Para viajar mejor: evita traslados muy tarde, separa actividades fuertes por altura, confirma puntos de encuentro y lleva documentos físicos/digitales.
+Si viajas en pareja, familia o con amigos, puedo ajustar el ritmo para que no sea cansado.`;
+
+const weatherReply = `Depende del destino. Costa como Lima, Paracas e Ica suele requerir bloqueador, lentes y cortaviento; Andes como Cusco, Huaraz o Arequipa necesita capas, casaca y margen por altura; selva como Tarapoto pide repelente, ropa ligera y zapatillas con agarre.
+Si me dices destino y mes, te doy una lista exacta de ropa y horario recomendado.`;
+
+const ecommerceReply = `En un flujo de e-commerce turístico, el chatbot reduce dudas antes de la compra: presupuesto, duración, destino, disponibilidad, clima, seguridad y contacto.
+El objetivo no es reemplazar al asesor humano, sino filtrar intención, recomendar una ruta inicial y llevar al usuario a WhatsApp con información ordenada.
+Así se reducen abandonos por indecisión y se mejora la conversión del sitio.`;
+
 const alternativeReply = `Claro, cambiamos la ruta.
 Destino recomendado: Arequipa + Colca
 Por qué encaja: es una alternativa fuerte si no quieres la ruta anterior: combina ciudad bonita, gastronomía, miradores y paisaje andino.
@@ -85,6 +108,7 @@ No inventes reservas reales, hoteles disponibles ni confirmaciones de pago.
 Si el usuario solo saluda, no recomiendes paquete todavía: saluda, pide presupuesto, días, origen y estilo.
 Si el usuario pregunta quién eres, qué haces o cómo funciona el bot, explica tu rol y pide datos; no recomiendes paquete todavía.
 Si el usuario pide contacto, WhatsApp o teléfono, responde con 965 338 001 y ofrece preparar un resumen.
+Si pregunta por precios, pagos, seguridad, clima, destinos, reservas, cancelaciones o el flujo de compra, responde directo y útil; no fuerces siempre un paquete.
 Si el usuario rechaza una ruta con frases como "no quiero ese", "otro", "no me gusta" o "cambia", reconoce el rechazo y ofrece una alternativa distinta explicando por qué cambia.`;
 
 function demoReply(message: string) {
@@ -92,6 +116,12 @@ function demoReply(message: string) {
   const isGreeting = /^(hola|holaa|buenas|buenos dias|buenos días|buenas tardes|buenas noches|hey|ola)[!.¡!?\s]*$/.test(text);
   const asksIdentity = /quien eres|quién eres|que eres|qué eres|como funcionas|cómo funcionas|que haces|qué haces|ayuda|help|bot|asistente/.test(text);
   const asksContact = /contacto|whatsapp|wasap|wsp|telefono|teléfono|numero|número|llamar|asesor/.test(text);
+  const asksDestinations = /destinos|lugares|a donde|adonde|dónde puedo ir|donde puedo ir|opciones|paquetes|rutas/.test(text);
+  const asksPricing = /precio|precios|cuanto|cuánto|cuesta|costo|costos|presupuesto|barato|económico|economico/.test(text);
+  const asksPayment = /pago|pagar|reserva|reservar|reservo|confirmar|disponibilidad|tarjeta|yape|plin|cancelaci[oó]n|reembolso|comprar/.test(text);
+  const asksSafety = /seguro|seguridad|peligro|confiable|familia|niños|ninos|adulto mayor|cansado|altura/.test(text);
+  const asksEcommerce = /ecommerce|e-commerce|tienda|compra|flujo|cliente|caso práctico|caso practico|ai-900|azure/.test(text);
+  const hasRouteDetails = /s\/|\d+\s*d[ií]as|desde|salgo|salimos|viaje|viajar|pareja|amigos|familia|quiero ir/.test(text);
   const wantsAlternative = /no quiero|no me gusta|otro|otra|cambia|alternativa|ese no|esa no|no ese|no esa|no quiero ese|no quiero esa/.test(text);
   const isAdventure = /aventura|trek|montaña|montana|huaraz|laguna|amigos|adrenalina/.test(text);
   const isRomantic = /pareja|romant|fotos|bonito|sunset|atardecer/.test(text);
@@ -112,19 +142,32 @@ function demoReply(message: string) {
     return contactReply;
   }
 
+  if (asksEcommerce) {
+    return ecommerceReply;
+  }
+
+  if (asksPayment) {
+    return paymentReply;
+  }
+
+  if (asksSafety) {
+    return safetyReply;
+  }
+
+  if (asksDestinations) {
+    return destinationsReply;
+  }
+
+  if (asksPricing && !hasRouteDetails) {
+    return pricingReply;
+  }
+
   if (wantsAlternative) {
     return alternativeReply;
   }
 
   if (asksWeather) {
-    return `Destino recomendado: Ruta ajustada por clima
-Por qué encaja: antes de elegir destino conviene adaptar horarios, ropa y margen de traslado.
-Duración ideal: 2 a 4 días según temporada.
-Presupuesto aproximado: reserva S/40 a S/120 extra por persona para movilidad, capas de ropa o plan alterno.
-Itinerario sugerido: Día 1 llegada suave / Día 2 actividad principal temprano / Día 3 plan flexible y retorno.
-Actividades clave: miradores al amanecer, tours de tarde, caminatas cortas, comida local y descanso estratégico.
-Tips: Andes requiere capas y cortaviento; costa pide bloqueador y abrigo ligero; selva pide repelente, zapatillas con agarre y ropa respirable.
-CTA final: dime destino, mes de viaje y número de viajeros para darte una lista exacta de ropa y horarios.`;
+    return weatherReply;
   }
 
   if (isJungle) {

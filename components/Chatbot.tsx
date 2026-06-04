@@ -4,11 +4,11 @@ import Image from "next/image";
 import {
   Bot,
   CheckCircle2,
-  Loader2,
   MessageCircle,
   Minimize2,
   RotateCcw,
   Send,
+  Sparkles,
   X
 } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
@@ -105,16 +105,20 @@ function AssistantBubble({ content }: { content: string }) {
 export function Chatbot() {
   const [open, setOpen] = useState(false);
   const [minimized, setMinimized] = useState(false);
+  const [closingMode, setClosingMode] = useState<"minimize" | "close" | null>(null);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { id: "welcome", role: "assistant", content: welcome }
   ]);
   const listRef = useRef<HTMLDivElement | null>(null);
+  const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const openFromHash = () => {
       if (window.location.hash === "#kuntur-chat") {
+        if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
+        setClosingMode(null);
         setOpen(true);
         setMinimized(false);
       }
@@ -139,23 +143,41 @@ export function Chatbot() {
     };
   }, [open]);
 
+  useEffect(() => {
+    return () => {
+      if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
+    };
+  }, []);
+
   const resetChat = () => {
     setMessages([{ id: "welcome", role: "assistant", content: welcome }]);
     setInput("");
   };
 
   const closeChat = () => {
-    resetChat();
-    setOpen(false);
-    setMinimized(false);
+    if (closingMode) return;
+    setClosingMode("close");
+    transitionTimerRef.current = setTimeout(() => {
+      resetChat();
+      setOpen(false);
+      setMinimized(false);
+      setClosingMode(null);
+    }, 230);
   };
 
   const minimizeChat = () => {
-    setOpen(false);
-    setMinimized(true);
+    if (closingMode) return;
+    setClosingMode("minimize");
+    transitionTimerRef.current = setTimeout(() => {
+      setOpen(false);
+      setMinimized(true);
+      setClosingMode(null);
+    }, 230);
   };
 
   const restoreChat = () => {
+    if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
+    setClosingMode(null);
     setMinimized(false);
     setOpen(true);
   };
@@ -217,7 +239,7 @@ export function Chatbot() {
           data-lenis-prevent
           onWheel={(event) => event.stopPropagation()}
           onTouchMove={(event) => event.stopPropagation()}
-          className="chat-panel chat-shell mb-4 flex h-[min(640px,calc(100svh-112px))] min-h-[510px] w-[calc(100vw-32px)] max-w-[440px] flex-col overflow-hidden overscroll-contain rounded-[30px] border border-bone/18 shadow-[0_30px_120px_rgba(0,0,0,.72)]"
+          className={`chat-panel chat-shell mb-4 flex h-[min(640px,calc(100svh-112px))] min-h-[510px] w-[calc(100vw-32px)] max-w-[440px] flex-col overflow-hidden overscroll-contain rounded-[30px] border border-bone/18 shadow-[0_30px_120px_rgba(0,0,0,.72)] ${closingMode ? "chat-panel-out" : ""}`}
         >
           <div className="relative overflow-hidden border-b border-bone/10 px-4 py-3.5">
             <div className="pointer-events-none absolute -right-16 -top-16 size-52 rounded-full bg-sand/18 blur-3xl" />
@@ -298,9 +320,21 @@ export function Chatbot() {
               )
             )}
             {loading ? (
-              <div className="flex max-w-[88%] items-center gap-3 rounded-[22px] border border-bone/10 bg-bone/[0.075] px-4 py-3 text-sm text-bone/68">
-                <Loader2 className="animate-spin text-sand" size={17} />
-                Analizando presupuesto, clima y mejor destino...
+              <div className="chat-typing flex max-w-[88%] items-center gap-3 rounded-[22px] border border-sand/20 bg-bone/[0.085] px-4 py-3 text-sm text-bone/74 shadow-[inset_0_1px_0_rgba(255,255,255,.06)]">
+                <span className="grid size-8 shrink-0 place-items-center rounded-full bg-sand/16 text-sand">
+                  <Sparkles size={16} />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[0.62rem] font-extrabold uppercase tracking-[0.18em] text-sand/78">
+                    Asistente pensando
+                  </span>
+                  <span className="mt-1 flex items-center gap-1 text-bone/62">
+                    Afinando ruta
+                    <span className="typing-dot" />
+                    <span className="typing-dot" />
+                    <span className="typing-dot" />
+                  </span>
+                </span>
               </div>
             ) : null}
           </div>

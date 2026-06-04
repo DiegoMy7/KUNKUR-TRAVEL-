@@ -70,3 +70,7 @@ Luego crea un repositorio en GitHub, sube el proyecto y en Vercel importa ese re
 - Scroll storytelling con pinning.
 - Dirección visual premium con imágenes remotas, overlays y microinteracciones.
 - UX responsive cuidada para desktop y móvil.
+
+## Caso práctico AI-900
+
+La documentación del caso práctico está en `docs/caso-practico-ai900.md`. Incluye necesidades del cliente, flujo conversacional, preguntas frecuentes, plataformas usadas y plan de implementación.
