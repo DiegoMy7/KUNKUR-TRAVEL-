@@ -5,7 +5,7 @@ export function StorySection() {
     <section className="section-pad relative overflow-hidden bg-obsidian">
       <div className="container-premium grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
         <div className="reveal relative min-h-[620px]">
-          <div className="hover-lift absolute left-0 top-4 h-[430px] w-[76%] overflow-hidden rounded-[34px] border border-bone/12 image-fallback">
+          <div className="story-card hover-lift absolute left-0 top-4 h-[430px] w-[76%] overflow-hidden rounded-[34px] border border-bone/12 image-fallback">
             <Image
               src="https://images.pexels.com/photos/26984841/pexels-photo-26984841.jpeg?auto=compress&cs=tinysrgb&w=1300"
               alt="Paisaje andino durante un viaje"
@@ -15,7 +15,7 @@ export function StorySection() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-obsidian/70 to-transparent" />
           </div>
-          <div className="hover-lift absolute bottom-6 right-0 h-[330px] w-[58%] overflow-hidden rounded-[30px] border border-sand/30 image-fallback shadow-glow">
+          <div className="story-card story-card-alt hover-lift absolute bottom-6 right-0 h-[330px] w-[58%] overflow-hidden rounded-[30px] border border-sand/30 image-fallback shadow-glow">
             <Image
               src="https://images.pexels.com/photos/35923673/pexels-photo-35923673.jpeg?auto=compress&cs=tinysrgb&w=1100"
               alt="Viajeros contemplando una ruta"

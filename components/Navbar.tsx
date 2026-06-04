@@ -54,12 +54,12 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed left-0 top-0 z-40 w-full transition-all duration-300",
+        "fixed left-0 top-0 z-[80] w-full transition-all duration-300",
         scrolled && lightMode
           ? "bg-bone/88 py-2 text-obsidian shadow-[0_12px_48px_rgba(5,5,5,.12)] backdrop-blur-2xl"
           : scrolled
-            ? "bg-obsidian/64 py-2 text-bone shadow-glass backdrop-blur-2xl"
-            : "bg-transparent py-5 text-bone"
+            ? "bg-obsidian/92 py-2 text-bone shadow-glass backdrop-blur-2xl"
+            : "bg-obsidian/72 py-4 text-bone backdrop-blur-xl lg:bg-transparent lg:py-5 lg:backdrop-blur-none"
       )}
     >
       <nav className="container-premium flex items-center justify-between gap-4">

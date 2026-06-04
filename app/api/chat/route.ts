@@ -39,6 +39,34 @@ const pricingReply = `Los presupuestos son aproximados y dependen de fecha, tran
 Como referencia: full day desde Lima puede ir desde S/180 a S/350; escapadas de 2 a 3 días desde S/520 a S/850; rutas premium como Cusco suelen partir desde S/890 sin vuelos.
 Si me das presupuesto, días y ciudad de salida, te propongo una ruta que no se dispare.`;
 
+const fullDayReply = `Destino recomendado: Full Day Lima fotográfica
+Por qué encaja: si quieres algo desde Lima, barato y con buenas fotos, conviene evitar una ruta larga y concentrar el día en lugares cercanos.
+Duración ideal: 1 día.
+Presupuesto aproximado: S/90 a S/180 por persona si usas movilidad local y comida sencilla.
+Itinerario sugerido: Mañana Centro Histórico / Tarde Miraflores y Costa Verde / Sunset en Barranco.
+Actividades clave: Plaza Mayor, Jirón de la Unión, malecón de Miraflores, Puente de los Suspiros y fotos al atardecer.
+Tips: empieza temprano, lleva bloqueador, evita horas punta y separa algo para comida o café.
+CTA final: si quieres full day fuera de Lima, dime si aceptas salir muy temprano y subo la ruta a Paracas o Ica.`;
+
+const tinyBudgetReply = `Con S/75 a S/100 sí se puede armar algo, pero debe ser un plan local y realista, no un paquete completo con tour, traslados y entradas.
+Ruta sugerida: Lima low cost fotográfica.
+Por qué encaja: permite caminar, tomar fotos y comer algo sin inflar presupuesto.
+Duración ideal: medio día o full day ligero.
+Presupuesto aproximado: S/75 a S/100 por persona.
+Itinerario sugerido: Barranco / Malecón de Miraflores / circuito de comida económica.
+Tips: usa transporte público o taxi compartido, prioriza lugares gratuitos y evita tours pagos.
+CTA final: dime si quieres plan cultural, fotos o comida y lo ajusto a ese presupuesto.`;
+
+const expensiveReply = `Totalmente válido: si te parece caro, bajamos la ruta en vez de forzarla.
+Opciones para reducir costo: cambiar hospedaje premium por económico, elegir un full day, viajar en grupo, evitar temporada alta o escoger Lima/Ica antes que Cusco.
+Ruta más económica sugerida: Lima + Barranco + Costa Verde o Ica corto si tienes más margen.
+Presupuesto aproximado: desde S/90 local en Lima o desde S/180 a S/350 para full day con salida.
+CTA final: dime tu presupuesto máximo real y te armo la mejor opción sin venderte humo.`;
+
+const sillyReply = `Todavía no puedo hacer café, pero sí puedo evitar que tu viaje salga quemado.
+Si quieres algo rápido, dime presupuesto, días y desde dónde sales; yo te devuelvo una ruta clara, con clima, horarios y tips.
+Y si el café es parte del plan, puedo recomendarte una ruta con cafeterías bonitas en Barranco, Miraflores o una experiencia cafetalera en Tarapoto.`;
+
 const paymentReply = `Para una reserva real se debe confirmar disponibilidad, fecha, cantidad de viajeros y condiciones del proveedor.
 En esta demo no procesamos pagos dentro de la web; el flujo correcto es asesoría por chat, resumen de ruta y cierre por WhatsApp con un asesor.
 Esto evita cobros improvisados y permite validar horarios, entradas y transporte antes de pagar.`;
@@ -122,6 +150,10 @@ function demoReply(message: string) {
   const asksSafety = /seguro|seguridad|peligro|confiable|familia|niños|ninos|adulto mayor|cansado|altura/.test(text);
   const asksEcommerce = /ecommerce|e-commerce|tienda|compra|flujo|cliente|caso práctico|caso practico|ai-900|azure/.test(text);
   const hasRouteDetails = /s\/|\d+\s*d[ií]as|desde|salgo|salimos|viaje|viajar|pareja|amigos|familia|quiero ir/.test(text);
+  const asksFullDay = /full day|fullday|1 dia|1 día|un dia|un día|por el dia|por el día/.test(text);
+  const hasTinyBudget = /s\/\s*(75|80|90|100)\b|\b(75|80|90|100)\s*soles?\b/.test(text);
+  const saysExpensive = /muy caro|caro|costoso|se pasa|bajar|rebajar|m[aá]s barato|mas barato|menos presupuesto/.test(text);
+  const asksSilly = /caf[eé]|chiste|broma|cantar|cantas|novia|tarea|hacerme|hazme|puedes hacer/.test(text);
   const wantsAlternative = /no quiero|no me gusta|otro|otra|cambia|alternativa|ese no|esa no|no ese|no esa|no quiero ese|no quiero esa/.test(text);
   const isAdventure = /aventura|trek|montaña|montana|huaraz|laguna|amigos|adrenalina/.test(text);
   const isRomantic = /pareja|romant|fotos|bonito|sunset|atardecer/.test(text);
@@ -160,6 +192,22 @@ function demoReply(message: string) {
 
   if (asksPricing && !hasRouteDetails) {
     return pricingReply;
+  }
+
+  if (asksSilly) {
+    return sillyReply;
+  }
+
+  if (saysExpensive) {
+    return expensiveReply;
+  }
+
+  if (hasTinyBudget) {
+    return tinyBudgetReply;
+  }
+
+  if (asksFullDay) {
+    return fullDayReply;
   }
 
   if (wantsAlternative) {

@@ -38,7 +38,7 @@ body {
 body::before {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: 30;
   pointer-events: none;
   content: "";
   opacity: 0.08;
@@ -414,7 +414,7 @@ header[class*="py-2"] .nav-cta {
 
 .bot-launcher-bot-icon {
   opacity: 0;
-  transform: translate(-50%, calc(-50% + 9px)) rotate(-10deg) scale(0.92);
+  transform: translate(-50%, calc(-50% + 9px)) rotate(-8deg) scale(0.9);
 }
 
 .bot-launcher-chat-icon {
@@ -423,7 +423,7 @@ header[class*="py-2"] .nav-cta {
 
 .bot-launcher:hover .bot-launcher-chat-icon {
   opacity: 0;
-  transform: translate(-50%, calc(-50% - 10px)) rotate(10deg) scale(0.92);
+  transform: translate(-50%, calc(-50% - 10px)) rotate(8deg) scale(0.92);
 }
 
 .bot-launcher:hover .bot-launcher-bot-icon {
@@ -495,6 +495,28 @@ header[class*="py-2"] .nav-cta {
 .chat-minimized:hover::after {
   opacity: 1;
   animation: capsule-sheen 1.1s ease both;
+}
+
+.package-card:hover,
+.bento-card:hover,
+.testimonial-card:hover {
+  border-color: rgba(216, 168, 91, 0.38);
+  box-shadow: 0 26px 90px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(216, 168, 91, 0.08);
+}
+
+.story-card::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  opacity: 0.24;
+  background: radial-gradient(circle at 30% 20%, rgba(216, 168, 91, 0.26), transparent 36%);
+  mix-blend-mode: screen;
+}
+
+.cta-finale {
+  position: relative;
+  border-radius: 28px;
+  animation: cta-rise 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .planner-console {
@@ -598,6 +620,44 @@ header[class*="py-2"] .nav-cta {
   }
 }
 
+@keyframes card-air {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -5px;
+  }
+}
+
+@keyframes image-drift-soft {
+  0%,
+  100% {
+    translate: 0 0;
+    scale: 1;
+  }
+
+  50% {
+    translate: 0 -6px;
+    scale: 1.012;
+  }
+}
+
+@keyframes cta-rise {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
 @keyframes hero-drift {
   from {
     filter: saturate(0.96) brightness(0.96);
@@ -688,6 +748,10 @@ header[class*="py-2"] .nav-cta {
   .chat-message,
   .chat-typing,
   .chat-minimized,
+  .package-card,
+  .bento-card,
+  .testimonial-card,
+  .story-card,
   .hero-title-word,
   .hero-destination-word,
   .hero-destination-shell::after,
@@ -737,6 +801,13 @@ header[class*="py-2"] .nav-cta {
   .chat-minimized {
     min-width: min(252px, calc(100vw - 20px));
     max-width: calc(100vw - 20px);
+  }
+
+  .package-card,
+  .bento-card,
+  .testimonial-card,
+  .story-card {
+    animation-duration: 10s;
   }
 
   .container-premium {

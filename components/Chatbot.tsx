@@ -358,7 +358,7 @@ export function Chatbot() {
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
                   placeholder="Ej: S/700, 3 días, pareja, desde Lima..."
-                  className="min-w-0 flex-1 bg-transparent text-sm text-bone outline-none placeholder:text-bone/35"
+                  className="min-w-0 flex-1 bg-transparent text-base text-bone outline-none placeholder:text-bone/35 sm:text-sm"
                 />
               </div>
               <button
@@ -406,8 +406,8 @@ export function Chatbot() {
           aria-label="Abrir Asistente Kuntur"
         >
           <span className="bot-launcher-icon-wrap">
-            <Bot className="bot-launcher-chat-icon" size={25} />
-            <MessageCircle className="bot-launcher-bot-icon" size={23} />
+            <MessageCircle className="bot-launcher-chat-icon" size={25} />
+            <Sparkles className="bot-launcher-bot-icon" size={22} />
           </span>
           <span className="bot-launcher-label">Planificar viaje</span>
         </button>

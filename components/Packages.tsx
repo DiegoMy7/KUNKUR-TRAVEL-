@@ -16,10 +16,11 @@ export function Packages() {
         </div>
 
         <div className="mt-10 grid items-stretch gap-4 md:grid-cols-2 xl:grid-cols-5">
-          {packages.map((item) => (
+          {packages.map((item, index) => (
             <article
               key={item.name}
-              className="reveal hover-lift group relative flex h-full min-h-[430px] flex-col overflow-hidden rounded-[26px] border border-bone/12 bg-[#090908] md:min-h-[500px] xl:min-h-[520px]"
+              className="package-card reveal hover-lift group relative flex h-full min-h-[430px] flex-col overflow-hidden rounded-[26px] border border-bone/12 bg-[#090908] md:min-h-[500px] xl:min-h-[520px]"
+              style={{ ["--float-delay" as string]: `${index * 140}ms` }}
             >
               <div className="package-media relative h-[205px] shrink-0 overflow-hidden image-fallback md:h-[220px]">
                 <Image

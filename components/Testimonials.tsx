@@ -36,10 +36,11 @@ export function Testimonials() {
         </div>
 
         <div className="mt-12 grid gap-4 lg:grid-cols-3">
-          {testimonials.map((item) => (
+          {testimonials.map((item, index) => (
             <article
               key={item.name}
-              className="reveal hover-lift relative rounded-[26px] border border-obsidian/12 bg-obsidian/[0.04] p-6"
+              className="testimonial-card reveal hover-lift relative rounded-[26px] border border-obsidian/12 bg-obsidian/[0.04] p-6"
+              style={{ ["--float-delay" as string]: `${index * 150}ms` }}
             >
               <Quote className="text-clay" size={28} />
               <p className="mt-8 text-lg leading-8 text-obsidian/72">{item.text}</p>

@@ -34,7 +34,7 @@ export function MotionRuntime() {
 
     const ctx = gsap.context(() => {
       ScrollTrigger.batch(".reveal", {
-        start: "top 88%",
+        start: "top 86%",
         once: true,
         onEnter: (batch) => {
           gsap.to(batch, {
@@ -42,9 +42,9 @@ export function MotionRuntime() {
             y: 0,
             scale: 1,
             filter: "blur(0px)",
-            duration: 1,
-            stagger: 0.1,
-            ease: "power4.out"
+            duration: 1.05,
+            stagger: 0.12,
+            ease: "expo.out"
           });
         }
       });

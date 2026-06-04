@@ -56,13 +56,14 @@ export function BentoFeatures() {
           </h2>
         </div>
         <div className="mt-12 grid auto-rows-[minmax(230px,auto)] gap-4 lg:grid-cols-4">
-          {features.map((feature) => {
+          {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
               <a
                 key={feature.title}
                 href={feature.href}
-                className={`reveal group relative overflow-hidden rounded-[28px] border border-bone/12 bg-bone/6 p-6 ${feature.className}`}
+                className={`bento-card reveal group relative overflow-hidden rounded-[28px] border border-bone/12 bg-bone/6 p-6 ${feature.className}`}
+                style={{ ["--float-delay" as string]: `${index * 110}ms` }}
               >
                 <div className="absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_30%_20%,rgba(216,168,91,.22),transparent_36%)]" />
                 <div className="relative z-10 flex h-full flex-col justify-between">
